@@ -20,6 +20,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from api.controller.user_view_set import UserViewSet
 from api.controller.review_view_set import ReviewViewSet
@@ -27,7 +28,7 @@ from api.controller.swagger import schema_view
 
 router = routers.DefaultRouter() #DefaultRouter를 설정
 router.register(r'users', UserViewSet) #itemviewset 과 item이라는 router 등록
-router.register(r'reviews', ReviewViewSet) #itemviewset 과 item이라는 router 등록
+router.register(r'reviews', ReviewViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
@@ -36,5 +37,9 @@ urlpatterns = [
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # 로그인
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # access 재발급
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify')
 ]
 

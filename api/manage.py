@@ -15,8 +15,8 @@ def main():
 
         django.setup()
 
-        call_command('makemigrations', 'domain', interactive=False)
-        call_command('migrate', interactive=False)
+        call_command('makemigrations', 'domain', interactive=True)
+        call_command('migrate', interactive=True)
 
     except ImportError as exc:
         raise ImportError(

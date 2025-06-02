@@ -47,11 +47,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+        'rest_framework_simplejwt',
     'domain',
     'infrastructure',
     'api',
     'drf_yasg'
 ]
+AUTH_USER_MODEL = 'domain.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
 
 
 MIDDLEWARE = [
@@ -138,3 +149,15 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'JWT Authorization header. Example: "Bearer <your token>"',
+        }
+    },
+    'DEFAULT_INFO': 'path.to.urls.schema_view',  # 선택: Swagger 기본 연결
+    'USE_SESSION_AUTH': False,  # 🔐 Basic Auth 비활성화
+}
