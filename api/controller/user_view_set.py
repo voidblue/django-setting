@@ -1,10 +1,10 @@
 import logging
 
+from django.contrib.auth.models import User
 from rest_framework import viewsets, serializers
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from application.service.user_application import UserApplication
-from domain.models.user import User
 
 
 class UserDeserializer(serializers.ModelSerializer):
@@ -20,7 +20,7 @@ class UserDeserializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username')
+        fields = ('id', 'username', 'password')
         #fields = ('name', 'description', 'cost')
 
 
@@ -30,7 +30,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     def get_serializer_class(self):
         if self.action in ['create', 'update', 'partial_update']:
-            return UserSerializer
+            return UserDeserializer
         return UserSerializer
 
 

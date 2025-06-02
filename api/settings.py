@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'api',
     'drf_yasg'
 ]
-AUTH_USER_MODEL = 'domain.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

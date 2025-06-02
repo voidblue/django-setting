@@ -1,6 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-from domain.models import User
 
 
 class Review(models.Model):

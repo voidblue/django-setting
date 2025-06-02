@@ -3,7 +3,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from api.controller.user_view_set import UserSerializer
-from domain.models import User
 from domain.models.review import Review
 
 
